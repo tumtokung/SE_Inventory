@@ -1,83 +1,62 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            Users List
-        </h2>
-    </x-slot>
+<body>
+    @include("navbar")
+    <div class="container ">
+        <h1 style='font-size : 200%'><b> จัดการพนักงาน </b></h1>
 
-    <div>
-        <div class="max-w-6xl mx-auto py-10 sm:px-6 lg:px-8">
+
+
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead class="text-center">
+                    <tr>
+
+                        <th>รูป</th>
+                        <th>รหัส</th>
+                        <th>ชื่อ-นามสกุล</th>
+                        <th>ตำแหน่ง</th>
+                        <th>เบอร์โทร</th>
+                        <th></th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+                    @foreach($users as $user )
+                    
+                    <tr>
+                        <td>
+                            @if ($user->profile_photo_path == NULL)
+                            <img src="{{ $user->profile_photo_url }} ) }}" width="30" height="30" alt="" class="d-inline-block align-top">
+                            @else
+                            <img src="{{ asset('storage/'. $user->profile_photo_path ) }}" width="30" height="30" alt="" class="d-inline-block align-top">
+                            @endif
+                        </td>
+                        <td>{{ $user->created_at }}</td>
+                        <td>{{ $user->name }}</td>
+                        
+                        
+                        <td>{{ $user->roll }}</td>
+                       
+                        <td>{{ $user->tel }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                        <a href="{{ url('/') }}/users/{{ $user->id }}" class="text-blue-600 hover:text-blue-900 mb-2 mr-2">View</a>
+                        </td>
+                    </tr>
+                    @endforeach
+
+
+
+                </tbody>
+
+            </table>
             
-            <div class="flex flex-col">
-                <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-                    <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-                        <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-                            <table class="min-w-full divide-y divide-gray-200 w-full">
-                                <thead>
-                                <tr>
-                                    <th scope="col" width="50" class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        รูป
-                                    </th>
-                                    <th scope="col" class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        รหัส
-                                    </th>
-                                    <th scope="col" class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        ชื่อ-นามสกุล
-                                    </th>
-                                    <th scope="col" class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        ตำแหน่ง
-                                    </th>
-                                    <th scope="col" class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        เบอร์โทร
-                                    </th>
-                                    <th scope="col" width="200" class="px-6 py-3 bg-gray-50">
 
-                                    </th>
-                                </tr>
-                                </thead>
-                                <tbody class="bg-white divide-y divide-gray-200">
-                                @foreach ($users as $user)
-                                    <tr>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                            <img src="{{ asset('storage/'. $user->profile_photo_path ) }}" width="30" height="30" alt="" class="d-inline-block align-top">
-                                        </td>
 
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                            {{ $user->id }}
-                                        </td>
-
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                            {{ $user->name }}
-                                        </td>
-
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                            {{ $user->roll }}
-                                        </td>
-
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                            {{ $user->tel }}
-                                        </td>
-
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                            <a href="{{ route('users.show', $user->id) }}" class="text-blue-600 hover:text-blue-900 mb-2 mr-2">View</a>
-                                            <a href="{{ route('users.edit', $user->id) }}" class="text-indigo-600 hover:text-indigo-900 mb-2 mr-2">Edit</a>
-                                            <form class="inline-block" action="{{ route('users.destroy', $user->id) }}" method="POST" onsubmit="return confirm('Are you sure?');">
-                                                <input type="hidden" name="_method" value="DELETE">
-                                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                                <input type="submit" class="text-red-600 hover:text-red-900 mb-2 mr-2" value="Delete">
-                                            </form>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="block mb-8 mt-5">
-                <a href="{{ route('users.create') }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Add User</a>
-            </div>
         </div>
-    </div>
-</x-app-layout>
+        <div class="block mb-8 mt-8">
+                <a href="{{ route('users.create') }}" class="btn btn-success">เพิ่มพนักงาน</a>
+        </div>
+        
+        
+
+</body>

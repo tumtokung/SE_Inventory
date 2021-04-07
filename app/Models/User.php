@@ -29,6 +29,7 @@ class User extends Authenticatable
         'email',
         'password',
         'email_verified_at',
+        'profile_photo_path'
     ];
 
     /**
@@ -63,5 +64,23 @@ class User extends Authenticatable
 
     public static function getAll(){
         return self::get();
+    }
+    public static function getItem($id){
+        return self::findOrFail($id);
+    }
+
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+        self::created(function (User $user) {
+            if (!$user->roles()->get()->contains(2)) {
+                $user->roles()->attach(2);
+            }
+        });
+    }
+
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class);
     }
 }

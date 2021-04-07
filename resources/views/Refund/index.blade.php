@@ -1,6 +1,6 @@
 <body>
     @include("navbar")
     <div id="main">
-        <H1>ประวัติ</H1>
+        <H1>คืนสินค้า</H1>
     </div>
 </body>

@@ -3,13 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\User;
-use App\Models\Role;
-use Illuminate\Support\Facades\Gate;
-use Symfony\Component\HttpFoundation\Response;
+use App\Models\Product;
 
 
-class UserController extends Controller
+
+class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,13 +16,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users=User::getAll();
-
-        $users = User::with('roles')->get();
-        $roles = Role::pluck('title', 'id');
-       
-
-        return view('profile.manage-employee.index',compact('users','roles'));
+        $products = Product::all();
+        return view('product.product', compact('products'));
     }
 
     /**
@@ -34,8 +27,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        $roles = Role::pluck('title', 'id');
-        return view('profile.manage-employee.create', compact('roles'));
+        //
     }
 
     /**
@@ -46,13 +38,28 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $user = $request->all();
-        $user =User::create($user);
-        
-        $user->roles()->sync($request->input('roles', []));
-
-        
-        return redirect()->route('users.index');
+        {
+            $validator = Validator::make($request->all(), [
+                'id_product' => 'required',
+                'img' => 'required',
+                'name' => 'required',
+                'type' => 'required',
+                'groupt' => 'required',
+                'position' => 'required',
+                'use_area' => 'required',
+                'company' => 'required',
+            ]);
+            
+            if ($validator->fails())
+            {
+                return response()->json(['errors'=>$validator->errors()->all()]);
+            }
+    
+            $input = $request->all();
+            
+            Product::create($input);
+            return response()->json(['success'=>'Data is successfully added']);
+        }
     }
 
     /**
@@ -63,11 +70,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $data = [
-            "user"=>User::getItem($id),
-        ];
-
-        return view('profile.manage-employee.show',$data);
+        //
     }
 
     /**
@@ -78,10 +81,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $data = [
-            "user"=>User::getItem($id),
-        ];
-        return view("profile.manage-employee.edit",$data);
+        //
     }
 
     /**

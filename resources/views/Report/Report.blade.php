@@ -1,11 +1,6 @@
-<x-app-layout>
-    <x-slot name="header">
-        <div id="main">
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                {{ __('รายงาน') }}
-            </h2>
-        </div>
-    </x-slot>
-
-    
-</x-app-layout>
+<body>
+    @include("navbar")
+    <div id="main">
+        <H1>รายงาน</H1>
+    </div>
+</body>

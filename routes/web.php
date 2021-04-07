@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -18,17 +19,26 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
+Route::group(['middleware' => 'auth'], function () {
+
+    Route::resource('users', \App\Http\Controllers\UserController::class);
+    Route::resource('ImportProductOrder', \App\Http\Controllers\ImportProductOrderController::class);
+    Route::post('importproductorder',[\App\Http\Controllers\ImportProductOrderController::class,'storeOrder'])->name('ImportProductOrder.storeOrder');
+    Route::resource('product', \App\Http\Controllers\ProductController::class);
+    
+    
+});
+
+
+
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('dashboard.dashboard');
+    return view('dashboard.index');
 })->name('dashboard');
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/product', function () {
-    return view('product.product');
-})->name('product');
+Route::middleware(['auth:sanctum', 'verified'])->get('/products', function () {
+    return view('product.Shelf.index');
+})->name('products');
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/ImportProduct', function () {
-    return view('ImportProduct.ImportProduct');
-})->name('ImportProduct');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/ExportProduct', function () {
     return view('ExportProduct.ExportProduct');
@@ -36,12 +46,12 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/ExportProduct', function 
 
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/Refund', function () {
-    return view('Refund.Refund');
-})->name('Refund'); 
+    return view('Refund.index');
+})->name('Refund');
 
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/CheckStock', function () {
-    return view('CheckStock.CheckStock');
+    return view('CheckStock.index');
 })->name('CheckStock');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/Report', function () {
@@ -52,16 +62,13 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/History', function () {
     return view('History.History');
 })->name('History');
 
-Route::group(['middleware' => 'auth'], function () {
 
-    Route::resource('users', \App\Http\Controllers\UserController::class);
+Route::get('/test', function () {
+    return view('product.ProductTable.index');
 });
 
 Route::get('/navbar', function () {
-    return view('CheckStock.CheckStock');
+    return view('navbar');
 });
-// Route::group(['middleware' => 'auth'], function () {
-//     Route::resource('tasks', \App\Http\Controllers\TasksController::class);
 
-//     Route::resource('users', \App\Http\Controllers\UsersController::class);
-// });
+
