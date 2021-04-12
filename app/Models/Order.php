@@ -15,11 +15,4 @@ class Order extends Model
         'company_id',
         'date_EXP'
     ];
-
-    
-
-    public function importproductsuccesses()
-    {
-        return $this->belongsToMany(Importproductsuccess::class);
-    }
 }

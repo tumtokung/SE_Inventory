@@ -28,6 +28,14 @@
                 <x-jet-label for="password_confirmation" value="{{ __('Confirm Password') }}" />
                 <x-jet-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required autocomplete="new-password" />
             </div>
+            <div class="mt-4">
+                <label for="roles" class="block font-medium text-sm text-gray-700">Roles</label>
+                                <select name="roles[]" id="roles" class="form-select">
+                                    @foreach($roles as $id => $role)
+                                    <option value="{{ $id }}" {{ in_array($id, old('roles', [])) ? ' selected' : '' }}>{{ $role }}</option>
+                                    @endforeach
+                                </select>
+            </div>
             @if (Laravel\Jetstream\Jetstream::hasTermsAndPrivacyPolicyFeature())
                 <div class="mt-4">
                     <x-jet-label for="terms">

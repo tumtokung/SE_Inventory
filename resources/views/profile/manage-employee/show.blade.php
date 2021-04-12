@@ -1,10 +1,4 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            Show employee
-        </h2>
-    </x-slot>
-
     <div>
         <div class="max-w-6xl mx-auto py-10 sm:px-6 lg:px-8">
 
@@ -46,7 +40,11 @@
                                         roles
                                     </th>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 bg-white divide-y divide-gray-200">
-                                        {{ $user->roll }}
+
+                                        @foreach ($user->roles as $role)
+                                        {{ $role->title }}
+                                        @endforeach
+
                                     </td>
                                 </tr>
                                 <tr class="border-b">
@@ -57,6 +55,15 @@
                                         {{ $user->tel }}
                                     </td>
                                 </tr>
+                                <tr class="border-b">
+                                    <th scope="col" class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        ID
+                                    </th>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 bg-white divide-y divide-gray-200">
+                                        {{ $user->email}}
+                                    </td>
+                                </tr>
+
                             </table>
                         </div>
                     </div>

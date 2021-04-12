@@ -73,8 +73,8 @@
 
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="background-color: #1E272E;">
-                                <a class="dropdown-item" href="{{ route('ExportProduct') }}" text style="font-size:20px">เพิ่มรายการสินค้านำเข้า</a>
-                                <a class="dropdown-item" href="{{ route('ExportProduct') }}" text style="font-size:20px">รายการสินค้านำเข้า</a>
+                                <a class="dropdown-item" href="#" text style="font-size:20px">เพิ่มรายการสินค้านำเข้า</a>
+                                <a class="dropdown-item" href="#" text style="font-size:20px">รายการสินค้านำเข้า</a>
                             </div>
 
                         </li>
@@ -82,7 +82,7 @@
 
                         @if (Auth::user()->roll === "ผู้จัดการ" or Auth::user()->roll === "ฝ่ายนำสินค้าออก" or Auth::user()->roll === "ฝ่ายดำเนินกับฝ่ายผลิต")
                         <li class="nav-item">
-                            <a class="nav-link" style="font-size:20px" href="{{ route('Refund') }}">
+                            <a class="nav-link" style="font-size:20px" href="{{ route('return') }}">
                                 <img src="{{ asset('storage/profile-photos/product-return copy.png') }}" width="30" height="30" alt="" class="d-inline-block align-top">
 
                                 คืนสินค้า</a>
@@ -91,7 +91,7 @@
 
                         @if (Auth::user()->roll === "ผู้จัดการ" or Auth::user()->roll === "ฝ่ายจัดการคลังสินค้า" )
                         <li class="nav-item">
-                            <a class="nav-link" style="font-size:20px" href="{{ route('CheckStock') }}">
+                            <a class="nav-link" style="font-size:20px" href="#">
                                 <img src="{{ asset('storage/profile-photos/filew.png') }}" width="30" height="30" alt="" class="d-inline-block align-top">
                                 ตรวจสอบคลัง</a>
                         </li>
@@ -99,7 +99,7 @@
 
                         @if (Auth::user()->roll === "ผู้จัดการ" or Auth::user()->roll === "ฝ่ายจัดการคลังสินค้า" )
                         <li class="nav-item">
-                            <a class="nav-link" style="font-size:20px" href="{{ route('Report') }}">
+                            <a class="nav-link" style="font-size:20px" href="#">
                                 <img src="{{ asset('storage/profile-photos/exclamationw.png') }}" width="30" height="30" alt="" class="d-inline-block align-top class=" d-inline-block align-top"">
                                 รายงาน</a>
                         </li>

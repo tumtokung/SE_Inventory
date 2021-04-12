@@ -1,7 +1,8 @@
-<body>
-    @include("navbar")
-    <div class="container ">
-        <h1 style='font-size : 200%'><b> Create User </b></h1>
+
+
+@extends('navbar')
+@section('content')
+        <h1 style='font-size : 200%'><b> เพิ่มพนักงาน </b></h1>
         <div>
             <div class="max-w-4xl mx-auto py-10 sm:px-6 lg:px-8">
                 <div class="mt-5 md:mt-0 md:col-span-2">
@@ -18,7 +19,7 @@
 
                             <div class="px-4 py-2 bg-white sm:p-6">
                                 <label for="email" class="block font-medium text-sm text-gray-700">Email</label>
-                                <input type="email" name="email" id="email" class='form-control' value="{{ old('email', '') }}" />
+                                <input type="text" name="email" id="email" class='form-control' value="{{ old('email', '') }}" />
                                 @error('email')
                                 <p class="text-sm text-red-600">{{ $message }}</p>
                                 @enderror
@@ -58,14 +59,28 @@
                                 <p class="text-sm text-red-600">{{ $message }}</p>
                                 @enderror
                             </div>
+                            @if (Laravel\Jetstream\Jetstream::hasTermsAndPrivacyPolicyFeature())
+                            <div class="px-4 py-2 bg-white sm:p-6">
+                                <label for="terms">
+                                    <div class="flex items-center">
+                                        <input type="checkbox" class="form-check-input" name="terms" id="terms" />
+
+                                        <div class="ml-2">
+                                            ยินยอมข้อตกลงของบริษัท
+                                        </div>
+                                    </div>
+                                <label>
+                            </div>
+                            @endif
 
 
 
 
                             <div class="flex items-center justify-end px-4 py-3 bg-gray-50 text-right sm:px-6">
-                                <button class="btn btn-success">
-                                    Create
+                                <button class="btn btn-success" style="border-radius: 100px; width:90px; color:#ffff">
+                                    ตกลง
                                 </button>
+                                <a href="{{ route('users.index') }}" class="btn btn-danger profile-button" style="border-radius: 100px; width:90px; color:#ffff" >ยกเลิก</a>
                             </div>
                         </div>
                     </form>
@@ -73,9 +88,4 @@
             </div>
         </div>
 
-
-
-
-
-    </div>
-</body>
+@endsection

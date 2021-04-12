@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Role;
+use Illuminate\Auth\Events\Registered;
+use Laravel\Fortify\Contracts\CreatesNewUsers;
 use Illuminate\Support\Facades\Gate;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -18,13 +20,14 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users=User::getAll();
+        //abort_if(Gate::denies('employeemanage_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        // $users=User::getAll();
 
         $users = User::with('roles')->get();
-        $roles = Role::pluck('title', 'id');
+        
        
 
-        return view('profile.manage-employee.index',compact('users','roles'));
+        return view('profile.manage-employee.index',compact('users'));
     }
 
     /**
@@ -44,12 +47,11 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request,CreatesNewUsers $creator)
     {
-        $user = $request->all();
-        $user =User::create($user);
+        event(new Registered($user = $creator->create($request->all())));
+
         
-        $user->roles()->sync($request->input('roles', []));
 
         
         return redirect()->route('users.index');
@@ -63,11 +65,13 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $data = [
-            "user"=>User::getItem($id),
-        ];
+        
+        
+        $user=User::with('roles')->findOrFail($id);
+        $role = $user->roles;
+          
 
-        return view('profile.manage-employee.show',$data);
+        return view('profile.manage-employee.show',compact('user','role'));
     }
 
     /**

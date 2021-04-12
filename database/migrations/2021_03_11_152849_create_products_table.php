@@ -14,6 +14,7 @@ class CreateProductsTable extends Migration
     public function up()
     {
         Schema::create('products', function (Blueprint $table) {
+            $table->id();
             $table->string('id_product');
             $table->string('img');
             $table->string('name');
@@ -21,7 +22,7 @@ class CreateProductsTable extends Migration
             $table->string('group');
             $table->string('position');
             $table->string('company');
-            $table->integer('use_area');
+            $table->float('use_area', 3, 2);
             $table->timestamps();
         });
     }
