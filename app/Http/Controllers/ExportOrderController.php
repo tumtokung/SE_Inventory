@@ -38,31 +38,31 @@ class ExportOrderController extends Controller
         
            
         // dd($request-> product_id);
-        $request->validate([
-            'id_product'=>'required|max:6|Exists:products',
-            'quantity'=>'required|min:0',
-            'requestDate'=>'required',
-            'requireDate'=>'required',
-            'cus_name'=>'required',
-            'tel'=>'required',
-            'shippedAddress'=>'required'
-        ],
-        [
-            'id_product.required'=>"โปรดกรอกรหัส",
-            'id_product.max'=>"รหัสมี 6 ตัว",
-            'id_product.exists'=>"ไม่มีสินค้านี้",
-            'id_product.unique'=>"มีสินค้าอยู่ในรายการอยู่แล้ว",
-            'quantity.required'=>"โปรดกรอกจำนวนสินค้า",
-            'quantity.min'=>"โปรดกรอกเป็นจำนวนบวก",
-            'requestDate.required'=>"โปรดกรอกวันที่",
-            'requireDate.required'=>"โปรดกรอกวันที่",
-            'cus_name.required'=>"โปรดกรอกชื่อผู้ขอเบิก",
-            'tel.required'=>"โปรดกรอกเบอร์โทรศัพท์",
-            'shippedAddress.required'=>"โปรดกรอกที่อยู่"
+        // $request->validate([
+        //     'id_product'=>'required|max:6|Exists:products',
+        //     'quantity'=>'required|min:0',
+        //     'requestDate'=>'required',
+        //     'requireDate'=>'required',
+        //     'cus_name'=>'required',
+        //     'tel'=>'required',
+        //     'shippedAddress'=>'required'
+        // ],
+        // [
+        //     'id_product.required'=>"โปรดกรอกรหัส",
+        //     'id_product.max'=>"รหัสมี 6 ตัว",
+        //     'id_product.exists'=>"ไม่มีสินค้านี้",
+        //     'id_product.unique'=>"มีสินค้าอยู่ในรายการอยู่แล้ว",
+        //     'quantity.required'=>"โปรดกรอกจำนวนสินค้า",
+        //     'quantity.min'=>"โปรดกรอกเป็นจำนวนบวก",
+        //     'requestDate.required'=>"โปรดกรอกวันที่",
+        //     'requireDate.required'=>"โปรดกรอกวันที่",
+        //     'cus_name.required'=>"โปรดกรอกชื่อผู้ขอเบิก",
+        //     'tel.required'=>"โปรดกรอกเบอร์โทรศัพท์",
+        //     'shippedAddress.required'=>"โปรดกรอกที่อยู่"
 
             
-        ]
-        );
+        // ]
+        // );
         $exportproductorder = new ExportProductOrder();
         $exportproductorder -> product_id = $request-> product_id;
         $exportproductorder -> user_id = Auth::id();

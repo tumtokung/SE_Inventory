@@ -34,25 +34,31 @@ class ExportProductOrderController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'id_product'=>'required|max:6|Exists:products',
-            'quantity'=>'required|min:0',
-        ],
-        [
-            'id_product.required'=>"โปรดกรอกรหัส",
-            'id_product.max'=>"รหัสมี 6 ตัว",
-            'id_product.exists'=>"ไม่มีสินค้านี้",
-            'id_product.unique'=>"มีสินค้าอยู่ในรายการอยู่แล้ว",
-            'quantity.required'=>"โปรดกรอกจำนวนสินค้า",
-            'quantity.min'=>"โปรดกรอกเป็นจำนวนบวก"            
-        ]
-        );
-
+        // $request->validate([
+        //     'id_product'=>'required|max:6|Exists:products',
+        //     'quantity'=>'required|min:0',
+        // ],
+        // [
+        //     'id_product.required'=>"โปรดกรอกรหัส",
+        //     'id_product.max'=>"รหัสมี 6 ตัว",
+        //     'id_product.exists'=>"ไม่มีสินค้านี้",
+        //     'id_product.unique'=>"มีสินค้าอยู่ในรายการอยู่แล้ว",
+        //     'quantity.required'=>"โปรดกรอกจำนวนสินค้า",
+        //     'quantity.min'=>"โปรดกรอกเป็นจำนวนบวก"            
+        // ]
+        // );
         $exportproductorder = new ExportProductOrder();
-        $exportproductorder -> product_id = $request-> id_product;
-        dd($request-> product_id);
+        $exportproductorder -> product_id = $request-> product_id;
+        $exportproductorder -> user_id = Auth::id();
+        $exportproductorder -> order_id = 1;
+        $exportproductorder -> lot_id = 1;
+        $exportproductorder -> quantity = 1;
+        $exportproductorder -> cost = 1;
+        $exportproductorder -> test = FALSE;
+        $exportproductorder -> s = FALSE;
+
         $exportproductorder->save();
-        return redirect()->route('ExportProductOrder.index')->with('success',"บักทึกข้อมูลสำเร็จ");
+        return redirect()->route('ExportOrder.index')->with('success',"บักทึกข้อมูลสำเร็จ");
     }
 
     /**

@@ -61,7 +61,7 @@
           <form action="">
             <input type="number" min="1" maxlength="4" size="2" style="text-align:center" name='quantity' class='form-control' />
            
-            <span class="text-danger">{{$message}}</span>
+            
             
           </form>
         </td>
